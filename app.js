@@ -65,7 +65,6 @@
     function withinRange(dateStr, from, to){ const d = new Date(dateStr+"T00:00:00-04:00"); return (!from || d >= from) && (!to || d <= to); }
     function matchesSymbols(symbol, syms){ return !syms.length || syms.includes((symbol||"").toUpperCase()); }
     function matchesType(type, selected){ return !selected.length || selected.includes(type); }
-    const pad=n=>String(n).padStart(2,'0');
     const fmtDate=d=>d.toLocaleDateString("en-US",{year:'numeric',month:'short',day:'2-digit'});
 
     function parseET(dateStr, time_et){
@@ -151,7 +150,6 @@
       });
     }
 
-    const cardsWrap = $("#cardsWrap");
     function renderCards(rows){
       if (!cardsWrap) return;
       const groups = rows.reduce((acc, r) => { (acc[r.symbol] = acc[r.symbol] || []).push(r); return acc; }, {});
@@ -187,9 +185,10 @@
 
     function applyFiltersAndRender(){
       const rows = filteredRows();
-      updateSummary(rows);
+      console.log("[Events Radar] rendering rows:", rows.length);
       renderTable(rows);
       renderCards(rows);
+      updateSummary(rows);
     }
 
     // Header click sort
@@ -236,6 +235,7 @@
     const ready = setInterval(()=>{
       if (Array.isArray(window.EVENTS)){
         clearInterval(ready);
+        console.log("[Events Radar] EVENTS loaded:", window.EVENTS.length);
         applyFiltersAndRender();
       }
     }, 50);
