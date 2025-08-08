@@ -8,92 +8,8 @@ window.EVENTS = [
     "domain": "Inflation",
     "stage": "Release",
     "why": "Rates steer risk multiples",
-    "source": "https://www.bls.gov/news.release/cpi.toc.htm",
-    "notes": "Based on BLS cadence; verify on BLS calendar."
-  },
-  {
-    "date": "2025-08-14",
-    "time_et": "08:30",
-    "symbol": "QS",
-    "name": "PPI (July)",
-    "type": "Macro",
-    "domain": "Inflation",
-    "stage": "Release",
-    "why": "Input costs; rates expectations",
-    "source": "https://www.bls.gov/ppi/",
-    "notes": "Based on BLS cadence; verify on BLS calendar."
-  },
-  {
-    "date": "2025-08-15",
-    "time_et": "08:30",
-    "symbol": "QS",
-    "name": "Advance Retail Sales (July)",
-    "type": "Macro",
-    "domain": "Demand",
-    "stage": "Release",
-    "why": "Growth pulse \u2192 beta & sentiment",
-    "source": "https://www.census.gov/retail/",
-    "notes": "Typical mid\u2011month release; confirm on Census calendar."
-  },
-  {
-    "date": "2025-08-15",
-    "time_et": "09:15",
-    "symbol": "QS",
-    "name": "Industrial Production & Capacity Utilization (July)",
-    "type": "Macro",
-    "domain": "Activity",
-    "stage": "Release",
-    "why": "Production cycle read\u2011through",
-    "source": "https://www.federalreserve.gov/releases/g17/current/default.htm",
-    "notes": "Fed G.17; confirm posting time."
-  },
-  {
-    "date": "2025-08-15",
-    "time_et": "10:00",
-    "symbol": "QS",
-    "name": "Univ. of Michigan Sentiment (Aug prelim)",
-    "type": "Macro",
-    "domain": "Sentiment",
-    "stage": "Survey",
-    "why": "Risk appetite signal",
-    "source": "https://data.sca.isr.umich.edu/",
-    "notes": "Typical prelim release time; verify."
-  },
-  {
-    "date": "2025-08-14",
-    "time_et": "08:30",
-    "symbol": "QS",
-    "name": "Initial Jobless Claims (weekly)",
-    "type": "Macro",
-    "domain": "Labor",
-    "stage": "Weekly",
-    "why": "Labor tightness \u2194 rates/multiples",
-    "source": "https://www.dol.gov/ui/data.pdf",
-    "notes": "Weekly Thursday print; confirm time."
-  },
-  {
-    "date": "2025-08-21",
-    "time_et": "08:30",
-    "symbol": "QS",
-    "name": "Initial Jobless Claims (weekly)",
-    "type": "Macro",
-    "domain": "Labor",
-    "stage": "Weekly",
-    "why": "Labor tightness \u2194 rates/multiples",
-    "source": "https://www.dol.gov/ui/data.pdf",
-    "notes": "Weekly Thursday print; confirm time."
-  },
-  {
-    "date": "2025-08-20",
-    "time_et": "14:00",
-    "symbol": "QS",
-    "name": "FOMC Minutes (Jul meeting)",
-    "type": "Macro",
-    "domain": "Rates",
-    "stage": "Minutes",
-    "why": "Policy tone \u2192 yields \u2192 beta",
-    "source": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
-    "notes": "Minutes usually 2:00pm ET ~3 weeks post\u2011meeting; verify exact date."
+    "source": "https://www.bls.gov/",
+    "notes": ""
   },
   {
     "date": "2025-08-13",
@@ -104,92 +20,8 @@ window.EVENTS = [
     "domain": "Inflation",
     "stage": "Release",
     "why": "Rates steer risk multiples",
-    "source": "https://www.bls.gov/news.release/cpi.toc.htm",
-    "notes": "Based on BLS cadence; verify on BLS calendar."
-  },
-  {
-    "date": "2025-08-14",
-    "time_et": "08:30",
-    "symbol": "COIN",
-    "name": "PPI (July)",
-    "type": "Macro",
-    "domain": "Inflation",
-    "stage": "Release",
-    "why": "Input costs; rates expectations",
-    "source": "https://www.bls.gov/ppi/",
-    "notes": "Based on BLS cadence; verify on BLS calendar."
-  },
-  {
-    "date": "2025-08-15",
-    "time_et": "08:30",
-    "symbol": "COIN",
-    "name": "Advance Retail Sales (July)",
-    "type": "Macro",
-    "domain": "Demand",
-    "stage": "Release",
-    "why": "Growth pulse \u2192 beta & sentiment",
-    "source": "https://www.census.gov/retail/",
-    "notes": "Typical mid\u2011month release; confirm on Census calendar."
-  },
-  {
-    "date": "2025-08-15",
-    "time_et": "09:15",
-    "symbol": "COIN",
-    "name": "Industrial Production & Capacity Utilization (July)",
-    "type": "Macro",
-    "domain": "Activity",
-    "stage": "Release",
-    "why": "Production cycle read\u2011through",
-    "source": "https://www.federalreserve.gov/releases/g17/current/default.htm",
-    "notes": "Fed G.17; confirm posting time."
-  },
-  {
-    "date": "2025-08-15",
-    "time_et": "10:00",
-    "symbol": "COIN",
-    "name": "Univ. of Michigan Sentiment (Aug prelim)",
-    "type": "Macro",
-    "domain": "Sentiment",
-    "stage": "Survey",
-    "why": "Risk appetite signal",
-    "source": "https://data.sca.isr.umich.edu/",
-    "notes": "Typical prelim release time; verify."
-  },
-  {
-    "date": "2025-08-14",
-    "time_et": "08:30",
-    "symbol": "COIN",
-    "name": "Initial Jobless Claims (weekly)",
-    "type": "Macro",
-    "domain": "Labor",
-    "stage": "Weekly",
-    "why": "Labor tightness \u2194 rates/multiples",
-    "source": "https://www.dol.gov/ui/data.pdf",
-    "notes": "Weekly Thursday print; confirm time."
-  },
-  {
-    "date": "2025-08-21",
-    "time_et": "08:30",
-    "symbol": "COIN",
-    "name": "Initial Jobless Claims (weekly)",
-    "type": "Macro",
-    "domain": "Labor",
-    "stage": "Weekly",
-    "why": "Labor tightness \u2194 rates/multiples",
-    "source": "https://www.dol.gov/ui/data.pdf",
-    "notes": "Weekly Thursday print; confirm time."
-  },
-  {
-    "date": "2025-08-20",
-    "time_et": "14:00",
-    "symbol": "COIN",
-    "name": "FOMC Minutes (Jul meeting)",
-    "type": "Macro",
-    "domain": "Rates",
-    "stage": "Minutes",
-    "why": "Policy tone \u2192 yields \u2192 beta",
-    "source": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
-    "notes": "Minutes usually 2:00pm ET ~3 weeks post\u2011meeting; verify exact date."
+    "source": "https://www.bls.gov/",
+    "notes": ""
   },
   {
     "date": "2025-08-15",
@@ -199,9 +31,9 @@ window.EVENTS = [
     "type": "Market Micro",
     "domain": "Options",
     "stage": "Expiration",
-    "why": "Dealer positioning can amplify moves",
-    "source": "https://www.cboe.com/resources/monthly-expiration-calendars/",
-    "notes": "Monthly OPEX (third Friday)."
+    "why": "Dealer hedging flows",
+    "source": "https://www.cboe.com/",
+    "notes": ""
   },
   {
     "date": "2025-08-15",
@@ -211,33 +43,9 @@ window.EVENTS = [
     "type": "Market Micro",
     "domain": "Options",
     "stage": "Expiration",
-    "why": "Dealer positioning can amplify moves",
-    "source": "https://www.cboe.com/resources/monthly-expiration-calendars/",
-    "notes": "Monthly OPEX (third Friday)."
-  },
-  {
-    "date": "2025-08-15",
-    "time_et": "00:00",
-    "symbol": "QS",
-    "name": "FINRA short-interest \u2014 settlement date",
-    "type": "Market Micro",
-    "domain": "Short interest",
-    "stage": "Settlement",
-    "why": "Next short\u2011interest print influences squeeze risk",
-    "source": "https://www.finra.org/filing-reporting/short-interest",
-    "notes": "Publication usually ~T+8 business days; verify publish date."
-  },
-  {
-    "date": "2025-08-15",
-    "time_et": "00:00",
-    "symbol": "COIN",
-    "name": "FINRA short-interest \u2014 settlement date",
-    "type": "Market Micro",
-    "domain": "Short interest",
-    "stage": "Settlement",
-    "why": "Next short\u2011interest print influences squeeze risk",
-    "source": "https://www.finra.org/filing-reporting/short-interest",
-    "notes": "Publication usually ~T+8 business days; verify publish date."
+    "why": "Dealer hedging flows",
+    "source": "https://www.cboe.com/",
+    "notes": ""
   },
   {
     "date": "2025-08-12",
@@ -247,33 +55,9 @@ window.EVENTS = [
     "type": "Sector Conf",
     "domain": "Autos",
     "stage": "Conference",
-    "why": "OEM commentary can move battery suppliers",
+    "why": "OEM commentary can move suppliers",
     "source": "https://www.jpmorgan.com/",
-    "notes": "Dates to verify on conference site."
-  },
-  {
-    "date": "2025-08-13",
-    "time_et": "09:00",
-    "symbol": "QS",
-    "name": "J.P. Morgan Auto Conference (Day 2)",
-    "type": "Sector Conf",
-    "domain": "Autos",
-    "stage": "Conference",
-    "why": "OEM commentary can move battery suppliers",
-    "source": "https://www.jpmorgan.com/",
-    "notes": "Dates to verify on conference site."
-  },
-  {
-    "date": "2025-08-08",
-    "time_et": "16:30",
-    "symbol": "COIN",
-    "name": "US Spot Bitcoin ETF flows (daily cadence)",
-    "type": "Industry Print",
-    "domain": "Crypto ETFs",
-    "stage": "Flow report",
-    "why": "Flows influence exchange volumes & sentiment",
-    "source": "https://www.ishares.com/ or issuer sites",
-    "notes": "Publishers vary by issuer; represent daily cadence during window."
+    "notes": ""
   },
   {
     "date": "2025-08-14",
@@ -283,56 +67,56 @@ window.EVENTS = [
     "type": "Regulatory",
     "domain": "SEC",
     "stage": "Open meeting",
-    "why": "Market-structure/crypto actions can swing sector",
+    "why": "Market-structure actions move sector",
     "source": "https://www.sec.gov/news/upcoming-events",
-    "notes": "Check SEC events page; August schedules vary."
-  },
-  {
-    "date": "2025-08-14",
-    "time_et": "10:00",
-    "symbol": "COIN",
-    "name": "CFTC open meeting (if scheduled)",
-    "type": "Regulatory",
-    "domain": "CFTC",
-    "stage": "Open meeting",
-    "why": "Derivatives policy can affect crypto venues",
-    "source": "https://www.cftc.gov/PressRoom/Events/index.htm",
-    "notes": "Check CFTC calendar; August schedules vary."
-  },
-  {
-    "date": "2025-08-19",
-    "time_et": "10:00",
-    "symbol": "COIN",
-    "name": "Digital assets legislation status update (committee calendars)",
-    "type": "Policy / Legislation",
-    "domain": "Digital assets",
-    "stage": "Status",
-    "why": "Passage odds drive regulatory clarity repricing",
-    "source": "https://financialservices.house.gov/",
-    "notes": "Congress often in recess in August; verify hearings/markups."
+    "notes": ""
   },
   {
     "date": "2025-08-09",
     "time_et": "17:00",
     "symbol": "COIN",
-    "name": "Q2 10\u2011Q filing deadline (large accelerated filer)",
+    "name": "Q2 10\u2011Q filing deadline",
     "type": "Company",
     "domain": "SEC filing",
     "stage": "Deadline",
-    "why": "Fresh disclosures & risk factors can move shares",
-    "source": "https://www.sec.gov/rules/final/33-8876.pdf",
-    "notes": "Deadline is 40 days post quarter\u2011end; confirm filer status and any early filing."
+    "why": "Fresh disclosures can move shares",
+    "source": "https://www.sec.gov/",
+    "notes": ""
   },
   {
-    "date": "2025-08-09",
-    "time_et": "17:00",
+    "date": "2025-08-08",
+    "time_et": "16:30",
+    "symbol": "COIN",
+    "name": "US Spot Bitcoin ETF flows (daily cadence)",
+    "type": "Industry Print",
+    "domain": "Crypto ETFs",
+    "stage": "Flow report",
+    "why": "Flows influence exchange volumes",
+    "source": "https://www.ishares.com/",
+    "notes": ""
+  },
+  {
+    "date": "2025-08-20",
+    "time_et": "14:00",
     "symbol": "QS",
-    "name": "Q2 10\u2011Q filing deadline (accelerated filer)",
-    "type": "Company",
-    "domain": "SEC filing",
-    "stage": "Deadline",
-    "why": "Updates on cash runway, milestones, risks",
-    "source": "https://www.sec.gov/rules/final/33-8876.pdf",
-    "notes": "Deadline timing by filer status; verify if already filed."
+    "name": "FOMC Minutes (Jul mtg)",
+    "type": "Macro",
+    "domain": "Rates",
+    "stage": "Minutes",
+    "why": "Policy tone \u2192 yields",
+    "source": "https://www.federalreserve.gov/",
+    "notes": ""
+  },
+  {
+    "date": "2025-08-20",
+    "time_et": "14:00",
+    "symbol": "COIN",
+    "name": "FOMC Minutes (Jul mtg)",
+    "type": "Macro",
+    "domain": "Rates",
+    "stage": "Minutes",
+    "why": "Policy tone \u2192 yields",
+    "source": "https://www.federalreserve.gov/",
+    "notes": ""
   }
 ];

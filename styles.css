@@ -1,42 +1,34 @@
 
 :root{
   --bg:#f8fafc; --fg:#0f172a; --muted:#64748b; --card:#ffffff; --line:#e2e8f0;
-  --brand:#0f172a; /* change via ?brand=%23hex or edit here */
+  --brand:#0f172a;
 }
 :root[data-theme="dark"], [data-theme="dark"]{
   --bg:#0b1220; --fg:#e5e7eb; --muted:#94a3b8; --card:#0f172a; --line:#1f2937;
 }
-
 *{box-sizing:border-box}
 body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0;color:var(--fg);background:var(--bg)}
 header{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:3}
-h1{margin:0;font-size:20px}
-.muted{color:var(--muted);font-weight:500}
-
+h1{margin:0;font-size:20px}.muted{color:var(--muted);font-weight:500}
 .topbar{display:flex;justify-content:space-between;align-items:center;padding:12px 20px 6px}
 .toolbar{display:flex;gap:8px}
 .btn{padding:8px 10px;border:1px solid var(--brand);background:var(--brand);color:#fff;border-radius:6px;cursor:pointer}
 .btn.small{padding:6px 8px;font-size:12px}
 .btn.ghost{background:transparent;color:var(--fg);border-color:var(--fg)}
 .btn[aria-pressed="true"]{outline:2px solid var(--muted)}
-
 .controls{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;padding:10px 20px 14px}
 .controls label{font-size:12px;color:var(--muted);display:flex;gap:6px;align-items:center}
 .controls input,.controls select{padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--fg)}
-
 .summary.sticky{position:sticky;top:80px;background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:8px 20px;display:flex;justify-content:space-between;gap:10px;z-index:2}
-.summary .chip{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:4px 8px;margin-right:6px;font-size:12px}
-
+.summary .chip{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:4px 8px;margin-right:6px;font-size:12px;cursor:pointer}
 .status{background:#fff8c5;border:1px solid #facc15;color:#713f12;padding:8px 12px;margin:10px 20px;border-radius:6px;font-size:13px}
-
 .tableWrap{padding:16px 20px}
 table{width:100%;border-collapse:collapse;background:var(--card)}
-thead th{text-align:left;font-size:12px;color:var(--muted);background:rgba(148,163,184,0.1);position:sticky;top:130px;z-index:1}
+thead th{text-align:left;font-size:12px;color:var(--muted);background:rgba(148,163,184,0.1);position:sticky;top:130px;z-index:1;cursor:pointer}
 th,td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
 tbody tr:hover{background:rgba(148,163,184,0.07)}
 .details{display:none;font-size:13px;color:var(--fg);padding:10px 12px;background:rgba(148,163,184,0.07)}
 .rowGroup.open + .details{display:table-row}
-
 .cardsWrap{padding:16px 20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:8px}
 .card .head{display:flex;justify-content:space-between;align-items:center}
@@ -46,6 +38,5 @@ tbody tr:hover{background:rgba(148,163,184,0.07)}
 .card li{border-top:1px dashed var(--line);padding-top:6px}
 .card li:first-child{border-top:0;padding-top:0}
 .card time{font-size:12px;color:var(--muted)}
-
 .hint{color:var(--muted);font-size:12px;padding:0 20px 20px}
 footer{padding:12px 20px;font-size:12px;color:var(--muted)}
