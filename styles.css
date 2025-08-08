@@ -1,0 +1,16 @@
+
+*{box-sizing:border-box}body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0;color:#0f172a;background:#f8fafc}
+header{background:#fff;border-bottom:1px solid #e2e8f0;padding:16px 20px;position:sticky;top:0;z-index:2}
+h1{margin:0 0 12px;font-size:20px}.muted{color:#64748b;font-weight:500}
+.controls{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.controls label{font-size:12px;color:#475569;display:flex;gap:6px;align-items:center}
+.controls input,.controls select{padding:6px 8px;border:1px solid #cbd5e1;border-radius:6px;background:#fff}
+.controls button{padding:8px 10px;border:1px solid #334155;background:#0f172a;color:#fff;border-radius:6px;cursor:pointer}
+.controls button#clearFilters{background:#fff;color:#0f172a}.tableWrap{padding:16px 20px}
+table{width:100%;border-collapse:collapse;background:#fff}thead th{text-align:left;font-size:12px;color:#475569;background:#f1f5f9;position:sticky;top:78px;z-index:1}
+th,td{padding:10px 12px;border-bottom:1px solid #e5e7eb;vertical-align:top}tbody tr:hover{background:#fafafa}
+.badge{padding:2px 6px;border-radius:999px;border:1px solid #e2e8f0;font-size:12px;white-space:nowrap}
+.badge.Macro{background:#fef9c3}.badge.Regulatory{background:#e0f2fe}.badge.Company{background:#dcfce7}.badge['Policy / Legislation']{background:#fee2e2}
+.badge['Sector Conf']{background:#ede9fe}.badge['Industry Print']{background:#fff7ed}.badge['Market Micro']{background:#f1f5f9}
+a.source{color:#2563eb;text-decoration:none}.hint{color:#64748b;font-size:12px;padding:0 20px 20px}footer{padding:12px 20px;font-size:12px;color:#64748b}
+.details{display:none;font-size:13px;color:#334155;padding:10px 12px;background:#fafafa}.rowGroup.open + .details{display:table-row}
