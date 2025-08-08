@@ -13,13 +13,14 @@
       <div class="toolbar">
         <button id="viewTable" class="btn small" aria-pressed="true" title="Table view">Table</button>
         <button id="viewCards" class="btn small" aria-pressed="false" title="Cards view">Cards</button>
+        <button id="viewCalendar" class="btn small" aria-pressed="false" title="Calendar view">Calendar</button>
         <button id="toggleDark" class="btn small" title="Toggle dark mode">Dark</button>
       </div>
     </div>
     <div class="controls">
-      <label>From <input type="date" id="fromDate"></label>
-      <label>To <input type="date" id="toDate"></label>
-      <label>Symbols <input type="text" id="symbols" placeholder="e.g., QS, COIN"></label>
+      <label>From <input type="date" id="fromDate"></></label>
+      <label>To <input type="date" id="toDate"></></label>
+      <label>Symbols <input type="text" id="symbols" placeholder="e.g., QS, COIN (leave blank to include Macro/Micro)"></label>
       <label>Types
         <select id="types" multiple>
           <option>Company</option>
@@ -67,7 +68,25 @@
 
     <div id="cardsWrap" class="cardsWrap" hidden></div>
 
-    <p class="hint">Tip: click a <strong>Type chip</strong> to filter; Shift‑click headers for <strong>multi‑sort</strong>.</p>
+    <div id="calendarWrap" class="calendarWrap" hidden>
+      <div class="calendarHeader">
+        <button id="calPrev" class="btn small ghost">&larr;</button>
+        <div id="calTitle"></div>
+        <button id="calNext" class="btn small ghost">&rarr;</button>
+      </div>
+      <div class="calendarGrid" id="calendarGrid" aria-label="Month calendar grid"></div>
+      <div class="calendarLegend">
+        <span class="dot Macro"></span> Macro
+        <span class="dot MarketMicro"></span> Market Micro
+        <span class="dot Regulatory"></span> Regulatory
+        <span class="dot PolicyLegislation"></span> Policy / Legislation
+        <span class="dot Company"></span> Company
+        <span class="dot SectorConf"></span> Sector Conf
+        <span class="dot IndustryPrint"></span> Industry Print
+      </div>
+    </div>
+
+    <p class="hint">Tip: click a <strong>Type chip</strong> to filter; Shift‑click headers for <strong>multi‑sort</strong>. Macro/Market Micro items now have blank symbol.</p>
   </main>
 
   <footer>

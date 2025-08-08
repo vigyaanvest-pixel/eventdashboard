@@ -1,8 +1,8 @@
 window.EVENTS = [
   {
-    "date": "2025-08-13",
+    "date": "2025-08-12",
     "time_et": "08:30",
-    "symbol": "QS",
+    "symbol": "",
     "name": "CPI (July)",
     "type": "Macro",
     "domain": "Inflation",
@@ -12,39 +12,75 @@ window.EVENTS = [
     "notes": ""
   },
   {
-    "date": "2025-08-13",
+    "date": "2025-08-14",
     "time_et": "08:30",
-    "symbol": "COIN",
-    "name": "CPI (July)",
+    "symbol": "",
+    "name": "PPI (July)",
     "type": "Macro",
     "domain": "Inflation",
     "stage": "Release",
-    "why": "Rates steer risk multiples",
+    "why": "Input costs; rate expectations",
     "source": "https://www.bls.gov/",
     "notes": ""
   },
   {
     "date": "2025-08-15",
+    "time_et": "08:30",
+    "symbol": "",
+    "name": "Advance Retail Sales (July)",
+    "type": "Macro",
+    "domain": "Demand",
+    "stage": "Release",
+    "why": "Consumer pulse",
+    "source": "https://www.census.gov/",
+    "notes": ""
+  },
+  {
+    "date": "2025-08-20",
+    "time_et": "14:00",
+    "symbol": "",
+    "name": "FOMC Minutes (Jul mtg)",
+    "type": "Macro",
+    "domain": "Rates",
+    "stage": "Minutes",
+    "why": "Policy tone \u2192 yields",
+    "source": "https://www.federalreserve.gov/",
+    "notes": ""
+  },
+  {
+    "date": "2025-08-15",
     "time_et": "00:00",
-    "symbol": "QS",
+    "symbol": "",
     "name": "Monthly options expiration",
     "type": "Market Micro",
     "domain": "Options",
     "stage": "Expiration",
-    "why": "Dealer hedging flows",
+    "why": "Dealer positioning flows",
     "source": "https://www.cboe.com/",
     "notes": ""
   },
   {
     "date": "2025-08-15",
     "time_et": "00:00",
-    "symbol": "COIN",
-    "name": "Monthly options expiration",
+    "symbol": "",
+    "name": "FINRA short-interest \u2014 settlement date",
     "type": "Market Micro",
-    "domain": "Options",
-    "stage": "Expiration",
-    "why": "Dealer hedging flows",
-    "source": "https://www.cboe.com/",
+    "domain": "Short interest",
+    "stage": "Settlement",
+    "why": "Next publication can affect squeeze risk",
+    "source": "https://www.finra.org/",
+    "notes": ""
+  },
+  {
+    "date": "2025-08-09",
+    "time_et": "17:00",
+    "symbol": "COIN",
+    "name": "Q2 10\u2011Q filing deadline",
+    "type": "Company",
+    "domain": "SEC filing",
+    "stage": "Deadline",
+    "why": "Fresh disclosures",
+    "source": "https://www.sec.gov/",
     "notes": ""
   },
   {
@@ -55,7 +91,7 @@ window.EVENTS = [
     "type": "Sector Conf",
     "domain": "Autos",
     "stage": "Conference",
-    "why": "OEM commentary can move suppliers",
+    "why": "OEM commentary \u2192 suppliers",
     "source": "https://www.jpmorgan.com/",
     "notes": ""
   },
@@ -67,19 +103,7 @@ window.EVENTS = [
     "type": "Regulatory",
     "domain": "SEC",
     "stage": "Open meeting",
-    "why": "Market-structure actions move sector",
-    "source": "https://www.sec.gov/news/upcoming-events",
-    "notes": ""
-  },
-  {
-    "date": "2025-08-09",
-    "time_et": "17:00",
-    "symbol": "COIN",
-    "name": "Q2 10\u2011Q filing deadline",
-    "type": "Company",
-    "domain": "SEC filing",
-    "stage": "Deadline",
-    "why": "Fresh disclosures can move shares",
+    "why": "Market structure policies",
     "source": "https://www.sec.gov/",
     "notes": ""
   },
@@ -91,32 +115,8 @@ window.EVENTS = [
     "type": "Industry Print",
     "domain": "Crypto ETFs",
     "stage": "Flow report",
-    "why": "Flows influence exchange volumes",
+    "why": "Flows \u2192 exchange volumes",
     "source": "https://www.ishares.com/",
-    "notes": ""
-  },
-  {
-    "date": "2025-08-20",
-    "time_et": "14:00",
-    "symbol": "QS",
-    "name": "FOMC Minutes (Jul mtg)",
-    "type": "Macro",
-    "domain": "Rates",
-    "stage": "Minutes",
-    "why": "Policy tone \u2192 yields",
-    "source": "https://www.federalreserve.gov/",
-    "notes": ""
-  },
-  {
-    "date": "2025-08-20",
-    "time_et": "14:00",
-    "symbol": "COIN",
-    "name": "FOMC Minutes (Jul mtg)",
-    "type": "Macro",
-    "domain": "Rates",
-    "stage": "Minutes",
-    "why": "Policy tone \u2192 yields",
-    "source": "https://www.federalreserve.gov/",
     "notes": ""
   }
 ];

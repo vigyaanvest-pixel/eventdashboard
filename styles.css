@@ -1,7 +1,6 @@
 
 :root{
-  --bg:#f8fafc; --fg:#0f172a; --muted:#64748b; --card:#ffffff; --line:#e2e8f0;
-  --brand:#0f172a;
+  --bg:#f8fafc; --fg:#0f172a; --muted:#64748b; --card:#ffffff; --line:#e2e8f0; --brand:#0f172a;
 }
 :root[data-theme="dark"], [data-theme="dark"]{
   --bg:#0b1220; --fg:#e5e7eb; --muted:#94a3b8; --card:#0f172a; --line:#1f2937;
@@ -40,3 +39,28 @@ tbody tr:hover{background:rgba(148,163,184,0.07)}
 .card time{font-size:12px;color:var(--muted)}
 .hint{color:var(--muted);font-size:12px;padding:0 20px 20px}
 footer{padding:12px 20px;font-size:12px;color:var(--muted)}
+
+/* Calendar ------------------------------------------------------------ */
+.calendarWrap{padding:12px 20px}
+.calendarHeader{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:8px}
+.calendarHeader #calTitle{font-weight:600}
+.calendarGrid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.dayCell{border:1px solid var(--line);border-radius:8px;background:var(--card);min-height:110px;padding:6px;display:flex;flex-direction:column;gap:4px}
+.dayHead{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--muted)}
+.dayEvents{display:flex;flex-direction:column;gap:2px}
+.ev{font-size:11px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dot{display:inline-block;width:8px;height:8px;border-radius:999px;margin-right:6px;vertical-align:middle;border:1px solid var(--line)}
+.dot.Macro{background:#fef9c3}
+.dot.MarketMicro{background:#f1f5f9}
+.dot.Regulatory{background:#e0f2fe}
+.dot.PolicyLegislation{background:#fee2e2}
+.dot.Company{background:#dcfce7}
+.dot.SectorConf{background:#ede9fe}
+.dot.IndustryPrint{background:#fff7ed}
+.type-Macro{background:#fef9c3}
+.type-Market\ Micro{background:#f1f5f9}
+.type-Regulatory{background:#e0f2fe}
+.type-Policy\ /\ Legislation{background:#fee2e2}
+.type-Company{background:#dcfce7}
+.type-Sector\ Conf{background:#ede9fe}
+.type-Industry\ Print{background:#fff7ed}
