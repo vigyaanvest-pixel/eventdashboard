@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,7 +8,14 @@
 </head>
 <body>
   <header>
-    <h1>Events Radar <span class="muted">— next 2 weeks</span></h1>
+    <div class="topbar">
+      <h1>Events Radar <span class="muted">— next 2 weeks</span></h1>
+      <div class="toolbar">
+        <button id="viewTable" class="btn small" aria-pressed="true" title="Table view">Table</button>
+        <button id="viewCards" class="btn small" aria-pressed="false" title="Cards view">Cards</button>
+        <button id="toggleDark" class="btn small" title="Toggle dark mode">Dark</button>
+      </div>
+    </div>
     <div class="controls">
       <label>From <input type="date" id="fromDate"></label>
       <label>To <input type="date" id="toDate"></label>
@@ -24,14 +31,21 @@
           <option>Market Micro</option>
         </select>
       </label>
-      <button id="preset14">Next 14 days</button>
-      <button id="clearFilters">Clear</button>
-      <button id="exportCsv">Export CSV</button>
+      <button id="preset14" class="btn">Next 14 days</button>
+      <button id="clearFilters" class="btn ghost">Clear</button>
+      <button id="exportCsv" class="btn">Export CSV</button>
+    </div>
+
+    <div id="summaryBar" class="summary sticky">
+      <div id="summaryCounts"></div>
+      <div id="nextEvent"></div>
     </div>
   </header>
 
+  <div id="status" class="status" hidden></div>
+
   <main>
-    <div class="tableWrap">
+    <div id="tableWrap" class="tableWrap">
       <table id="eventsTable">
         <thead>
           <tr>
@@ -49,21 +63,31 @@
         <tbody></tbody>
       </table>
     </div>
+
+    <div id="cardsWrap" class="cardsWrap" hidden></div>
+
     <p class="hint">Tip: keep table text concise; click a row for notes.</p>
   </main>
 
   <footer>
-    <span>Static public site. Replace <code>eventbundle.js</code> daily.</span>
+    <span>Static public site. Replace <code>eventbundle.js</code> daily. Brand color can be set via <code>?brand=%23hex</code>.</span>
   </footer>
 
-  <!-- Cache-bust the bundle -->
+  <!-- Robust bundle loader with cache-busting + status messages -->
   <script>
     (function(){
       var s = document.createElement('script');
       s.src = 'eventbundle.js?v=' + Date.now();
-      document.currentScript.after(s);
+      s.async = false;
+      s.onload = function(){ window.__BUNDLE_OK__ = true; };
+      s.onerror = function(){
+        var st = document.getElementById('status');
+        st.hidden = false;
+        st.textContent = 'Failed to load eventbundle.js — ensure it is next to index.html.';
+      };
+      document.head.appendChild(s);
     })();
   </script>
-  <script src="app.js"></script>
+  <script src="app.js" defer></script>
 </body>
 </html>
