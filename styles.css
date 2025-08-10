@@ -71,9 +71,24 @@ footer{padding:12px 20px;font-size:12px;color:var(--muted)}
 [data-theme="dark"] .calendarWrap .dayCell { border-color: #334155; }   /* clearer borders */
 [data-theme="dark"] .calendarWrap .dayHead { color: #cbd5e1; }          /* date numbers pop */
 
-ont-size: 13px; }
-  .controls label { width: 100%; }         /* filters stack full-width */
-  .controls input,.controls select { flex: 1; }
-}
 #thumbsUp[aria-pressed="true"]{ opacity:.65; pointer-events:none; }
 #thumbsUp.small{ line-height:1; }
+
+/* Column filter row */
+.colFilter{
+  width:100%;
+  padding:6px 8px;
+  border:1px solid var(--line);
+  border-radius:6px;
+  background:var(--card);
+  color:var(--fg);
+  font-size:12px;
+}
+.filtersRow th{ background:rgba(148,163,184,0.06); }
+
+/* Sticky offsets for two header rows */
+:root { --sticky-top: 118px; --thead-row-h: 38px; } /* adjust if needed */
+thead tr:first-child th { position:sticky; top: var(--sticky-top); z-index:1; }
+thead tr.filtersRow th  { position:sticky; top: calc(var(--sticky-top) + var(--thead-row-h)); z-index:1; }
+
+
