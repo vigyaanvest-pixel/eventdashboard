@@ -24,6 +24,30 @@
       localStorage.setItem("er_theme", next);
     });
 
+
+    // Thumbs up (GA4) ------------------------------------------------------------
+const likeKey = "vv_like_" + (location.pathname || "/");
+const likeBtn = document.getElementById("thumbsUp");
+function sendGA(name, params){ try{ window.gtag && gtag('event', name, params||{}); }catch(e){} }
+
+if (likeBtn){
+  const liked = localStorage.getItem(likeKey) === "1";
+  if (liked){ likeBtn.setAttribute("aria-pressed","true"); likeBtn.textContent = "👍 Thanks!"; }
+  likeBtn.addEventListener("click", () => {
+    if (localStorage.getItem(likeKey) === "1") return;
+    localStorage.setItem(likeKey,"1");
+    likeBtn.setAttribute("aria-pressed","true");
+    likeBtn.textContent = "👍 Thanks!";
+    sendGA('feedback_like', {
+      page_path: location.pathname,
+      position: 'header',
+      view_mode:
+        document.querySelector('#viewTable[aria-pressed="true"]') ? 'table' :
+        document.querySelector('#viewCards[aria-pressed="true"]') ? 'cards' :
+        document.querySelector('#viewCalendar[aria-pressed="true"]') ? 'calendar' : 'unknown'
+    });
+  });
+}
     // Views -------------------------------------------------------------------
     const tableWrap = $("#tableWrap");
     const cardsWrap = $("#cardsWrap");
