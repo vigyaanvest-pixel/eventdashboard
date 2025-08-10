@@ -33,7 +33,8 @@
   onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<strong class=&quot;brandName&quot;>VigyaanVest — Events Radar</strong>')">
       </a>
       <div class="toolbar">
-        <button id="thumbsUp" class="btn small" title="Was this useful?">👍 Helpful</button>
+	  <button id="thumbsUp" class="btn small" title="Was this useful?">👍 Helpful</button>
+
         <button id="viewTable" class="btn small" aria-pressed="true" title="Table view">Table</button>
         <button id="viewCards" class="btn small" aria-pressed="false" title="Cards view">Cards</button>
         <button id="viewCalendar" class="btn small" aria-pressed="false" title="Calendar view">Calendar</button>
@@ -85,6 +86,17 @@
             <th>ICS</th>
             <th>Source</th>
           </tr>
+		  <tr class="filtersRow">
+    <th><input class="colFilter" data-key="date"   placeholder="Filter date"></th>
+    <th><input class="colFilter" data-key="symbol" placeholder="Filter symbol"></th>
+    <th><input class="colFilter" data-key="type"   placeholder="Filter type"></th>
+    <th><input class="colFilter" data-key="domain" placeholder="Filter domain"></th>
+    <th><input class="colFilter" data-key="stage"  placeholder="Filter stage"></th>
+    <th><input class="colFilter" data-key="name"   placeholder="Filter event"></th>
+    <th><input class="colFilter" data-key="why"    placeholder="Filter why"></th>
+    <th></th>
+    <th><input class="colFilter" data-key="source" placeholder="Filter source"></th>
+  </tr>
         </thead>
         <tbody></tbody>
       </table>
@@ -114,7 +126,7 @@
   </main>
 
   <footer>
-    <span>Static public site. Data is refreshed once daily.</span>
+    <span>Static public site. Replace <code>eventbundle.js</code> daily.</span>
   </footer>
 
   <script>
