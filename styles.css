@@ -75,3 +75,5 @@ ont-size: 13px; }
   .controls label { width: 100%; }         /* filters stack full-width */
   .controls input,.controls select { flex: 1; }
 }
+#thumbsUp[aria-pressed="true"]{ opacity:.65; pointer-events:none; }
+#thumbsUp.small{ line-height:1; }
