@@ -1,24 +1,20 @@
-
-:root{
-  --bg:#f8fafc; --fg:#0f172a; --muted:#64748b; --card:#ffffff; --line:#e2e8f0; --brand:#0f172a;
-}
-:root[data-theme="dark"], [data-theme="dark"]{
-  --bg:#0b1220; --fg:#e5e7eb; --muted:#94a3b8; --card:#0f172a; --line:#1f2937;
-}
+:root{--bg:#f8fafc; --fg:#0f172a; --muted:#64748b; --card:#ffffff; --line:#e2e8f0; --brand-primary:#05213c; --brand-accent:#2c8c4c;}
+:root[data-theme="dark"], [data-theme="dark"]{--bg:#0b1220; --fg:#e5e7eb; --muted:#94a3b8; --card:#0f172a; --line:#1f2937; --brand-primary:#e5e7eb; --brand-accent:#60a5fa;}
 *{box-sizing:border-box}
-body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0;color:var(--fg);background:var(--bg)}
+body{font-family:'Manrope', system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0;color:var(--fg);background:var(--bg)}
 header{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:3}
 h1{margin:0;font-size:20px}.muted{color:var(--muted);font-weight:500}
-.topbar{display:flex;justify-content:space-between;align-items:center;padding:12px 20px 6px}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:14px 20px 8px}
 .toolbar{display:flex;gap:8px}
-.btn{padding:8px 10px;border:1px solid var(--brand);background:var(--brand);color:#fff;border-radius:6px;cursor:pointer}
+.btn{padding:8px 10px;border:1px solid var(--brand-accent);background:var(--brand-accent);color:#fff;border-radius:999px;cursor:pointer}
 .btn.small{padding:6px 8px;font-size:12px}
 .btn.ghost{background:transparent;color:var(--fg);border-color:var(--fg)}
+.btn.cta{font-weight:700}
 .btn[aria-pressed="true"]{outline:2px solid var(--muted)}
-.controls{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;padding:10px 20px 14px}
+.controls{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;padding:10px 20px 14px}
 .controls label{font-size:12px;color:var(--muted);display:flex;gap:6px;align-items:center}
 .controls input,.controls select{padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--fg)}
-.summary.sticky{position:sticky;top:80px;background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:8px 20px;display:flex;justify-content:space-between;gap:10px;z-index:2}
+.summary.sticky{position:sticky;top:84px;background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:8px 20px;display:flex;justify-content:space-between;gap:10px;z-index:2}
 .summary .chip{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:4px 8px;margin-right:6px;font-size:12px;cursor:pointer}
 .status{background:#fff8c5;border:1px solid #facc15;color:#713f12;padding:8px 12px;margin:10px 20px;border-radius:6px;font-size:13px}
 .tableWrap{padding:16px 20px}
@@ -29,9 +25,9 @@ tbody tr:hover{background:rgba(148,163,184,0.07)}
 .details{display:none;font-size:13px;color:var(--fg);padding:10px 12px;background:rgba(148,163,184,0.07)}
 .rowGroup.open + .details{display:table-row}
 .cardsWrap{padding:16px 20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:8px;box-shadow:0 1px 2px rgba(0,0,0,0.05)}
 .card .head{display:flex;justify-content:space-between;align-items:center}
-.card .sym{font-weight:700;font-size:16px}
+.card .sym{font-weight:700;font-size:16px;color:var(--brand-primary)}
 .card .copy{font-size:12px}
 .card ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
 .card li{border-top:1px dashed var(--line);padding-top:6px}
@@ -39,8 +35,9 @@ tbody tr:hover{background:rgba(148,163,184,0.07)}
 .card time{font-size:12px;color:var(--muted)}
 .hint{color:var(--muted);font-size:12px;padding:0 20px 20px}
 footer{padding:12px 20px;font-size:12px;color:var(--muted)}
-
-/* Calendar ------------------------------------------------------------ */
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit}
+.logo{height:28px;width:auto;display:block}
+.brandName{font-weight:800;font-size:18px;color:var(--brand-primary)}
 .calendarWrap{padding:12px 20px}
 .calendarHeader{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:8px}
 .calendarHeader #calTitle{font-weight:600}
@@ -64,3 +61,12 @@ footer{padding:12px 20px;font-size:12px;color:var(--muted)}
 .type-Company{background:#dcfce7}
 .type-Sector\ Conf{background:#ede9fe}
 .type-Industry\ Print{background:#fff7ed}
+.details .teaser{margin-left:10px;font-weight:600;text-decoration:none;color:var(--brand-accent)}
+.details .teaser:hover{text-decoration:underline}
+
+/* Make header logo bigger */
+.logo { height: 40px; }  /* try 36–44px */
+/* Dark mode: make calendar event text dark on light pastel pills */
+[data-theme="dark"] .calendarWrap .ev { color: #0b1220; }               /* dark text */
+[data-theme="dark"] .calendarWrap .dayCell { border-color: #334155; }   /* clearer borders */
+[data-theme="dark"] .calendarWrap .dayHead { color: #cbd5e1; }          /* date numbers pop */

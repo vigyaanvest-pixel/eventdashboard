@@ -1,4 +1,3 @@
-
 (function(){
   function ready(fn){ if (document.readyState !== 'loading') fn(); else document.addEventListener('DOMContentLoaded', fn); }
 
@@ -6,7 +5,13 @@
     const $ = s => document.querySelector(s);
     const $$ = s => Array.from(document.querySelectorAll(s));
 
-    // Theme & toggles ---------------------------------------------------------
+    // Analytics wrapper
+    const track = (name, params={}) => { try { if (window.gtag) window.gtag('event', name, params); } catch(e){} };
+
+    // Views -------------------------------------------------------------------
+    // CTA UTM already baked into href in HTML; add click tracking
+    document.getElementById('ctaPaid')?.addEventListener('click', () => track('cta_click_paid_signals', {position:'topbar'}));
+
     const params = new URLSearchParams(location.search);
     const savedTheme = localStorage.getItem("er_theme");
     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -28,6 +33,7 @@
     const btnCal   = $("#viewCalendar");
 
     function setView(v){
+      track('view_' + v);
       const map = {table:tableWrap, cards:cardsWrap, calendar:calWrap};
       for (const k of Object.keys(map)){
         if (!map[k]) continue;
@@ -56,18 +62,12 @@
     function getSelectedTypes(){ return typesSel ? Array.from(typesSel.selectedOptions).map(o => o.value) : []; }
     function normalizeSymbolsInput(){ 
       const raw = (symInput?.value || "").toUpperCase().split(/[,\s]+/).filter(Boolean);
-      return raw; // leaving empty means include blank-symbol events
+      return raw;
     }
     function withinRange(dateStr, from, to){ const d = new Date(dateStr+"T00:00:00-04:00"); return (!from || d >= from) && (!to || d <= to); }
-    function matchesSymbols(symbol, syms){
-      // If user entered nothing, include everything (including symbol==="")
-      if (!syms.length) return true;
-      // If they entered symbols, accept rows where symbol matches OR symbol is blank only if "Macro/Micro" types are selected explicitly
-      return syms.includes((symbol||"").toUpperCase());
-    }
+    function matchesSymbols(symbol, syms){ if (!syms.length) return true; return syms.includes((symbol||"").toUpperCase()); }
     function matchesType(type, selected){ return !selected.length || selected.includes(type); }
 
-    // Date helpers -------------------------------------------------------------
     function parseET(dateStr, time_et){ return new Date((dateStr||"1970-01-01")+"T"+(time_et||"00:00")+":00-04:00"); }
     function fmtDateYMD(dateStr, timeStr){
       const d = parseET(dateStr, timeStr);
@@ -76,7 +76,6 @@
       return `${yyyy}/${mm}/${dd}` + (timeStr ? ` ${hh}:${mi}` : "");
     }
 
-    // Multi-sort ---------------------------------------------------------------
     let sortRules = [];
     function compareVals(a,b){
       if (a === b) return 0;
@@ -96,7 +95,6 @@
       return 0;
     }
 
-    // Data & filtering ---------------------------------------------------------
     function filteredRows(){
       const from = fromInput?.value ? new Date(fromInput.value+"T00:00:00-04:00") : null;
       const to   = toInput?.value ? new Date(toInput.value+"T00:00:00-04:00") : null;
@@ -109,7 +107,6 @@
                 .sort(multiCompare);
     }
 
-    // Summary bar --------------------------------------------------------------
     function updateSummary(rows){
       if (!summaryCounts || !nextEventEl) return;
       const counts = rows.reduce((acc, r) => { acc[r.type] = (acc[r.type]||0)+1; return acc; }, {});
@@ -121,12 +118,11 @@
       render(); if (window.__nextTimer) clearInterval(window.__nextTimer); window.__nextTimer = setInterval(render, 60*1000);
     }
 
-    // Renderers: table/cards ---------------------------------------------------
     function icsForEvent(evt){
       const dt = parseET(evt.date, evt.time_et), dtEnd = new Date(dt.getTime()+60*60*1000);
       function toICS(d){ const pad=n=>String(n).padStart(2,'0'); return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate())+'T'+pad(d.getUTCHours())+pad(d.getUTCMinutes())+pad(d.getUTCSeconds())+'Z'; }
-      const uid = `${evt.symbol||'GLOBAL'}-${evt.date}-${(evt.name||'').replace(/\W+/g,'-')}@events-radar`;
-      const ics = ["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Events Radar//EN","BEGIN:VEVENT",`UID:${uid}`,`DTSTAMP:${toICS(new Date())}`,`DTSTART:${toICS(dt)}`,`DTEND:${toICS(dtEnd)}`,`SUMMARY:${(evt.symbol||'Global')} — ${evt.name}`,`DESCRIPTION:${evt.type} | ${evt.domain||""} | ${evt.stage||""}`,`URL:${evt.source||''}`,"END:VEVENT","END:VCALENDAR"].join("\r\n");
+      const uid = `${evt.symbol||'GLOBAL'}-${evt.date}-${(evt.name||'').replace(/\\W+/g,'-')}@events-radar`;
+      const ics = ["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Events Radar//EN","BEGIN:VEVENT",`UID:${uid}`,`DTSTAMP:${toICS(new Date())}`,`DTSTART:${toICS(dt)}`,`DTEND:${toICS(dtEnd)}`,`SUMMARY:${(evt.symbol||'Global')} — ${evt.name}`,`DESCRIPTION:${evt.type} | ${evt.domain||""} | ${evt.stage||""}`,`URL:${evt.source||''}`,"END:VEVENT","END:VCALENDAR"].join("\\r\\n");
       return "data:text/calendar;charset=utf-8," + encodeURIComponent(ics);
     }
     function renderTable(rows){
@@ -145,9 +141,12 @@
           <td><a download="${(evt.symbol||'GLOBAL')}-${evt.date}.ics" href="${icsForEvent(evt)}">ICS</a></td>
           <td>${evt.source ? `<a class="source" href="${evt.source}" target="_blank">link</a>` : ""}</td>`;
         const details = document.createElement("tr"); details.className = "details";
-        details.innerHTML = `<td colspan="9"><strong>Notes:</strong> ${evt.notes || "—"}</td>`;
+        details.innerHTML = `<td colspan="9"><strong>Notes:</strong> ${evt.notes || "—"} <a class="teaser" href="https://vigyaanvest.com/?utm_source=events&utm_medium=teaser&utm_campaign=events_bundle" target="_blank" rel="noopener">Subscribers get trade setups & risk levels → Learn more</a></td>`;
         tr.addEventListener("click", () => tr.classList.toggle("open"));
         tbody.appendChild(tr); tbody.appendChild(details);
+        const symCell = tr.querySelector('td:nth-child(2)');
+        symCell?.classList.add('clickable');
+        symCell?.addEventListener('click', (ev)=>{ ev.stopPropagation(); var t=symCell.textContent.trim(); if(t) track('symbol_click',{value:t}); });
       });
     }
     function renderCards(rows){
@@ -179,10 +178,9 @@
       });
     }
 
-    // Calendar view ------------------------------------------------------------
     const calGrid = $("#calendarGrid");
     const calTitle= $("#calTitle");
-    let calAnchor = null; // Date object for first of visible month
+    let calAnchor = null;
 
     function monthStart(date){ return new Date(date.getFullYear(), date.getMonth(), 1); }
     function addDays(d, n){ const x=new Date(d); x.setDate(x.getDate()+n); return x; }
@@ -196,12 +194,10 @@
       if (!calAnchor) calAnchor = monthStart(pivot);
       calTitle.textContent = monthLabel(calAnchor);
 
-      // Build cells for the visible month
       calGrid.innerHTML = "";
-      const startDow = (new Date(calAnchor.getFullYear(),calAnchor.getMonth(),1)).getDay(); // 0 Sun
+      const startDow = (new Date(calAnchor.getFullYear(),calAnchor.getMonth(),1)).getDay();
       const firstCellDate = addDays(calAnchor, -startDow);
-      const daysToRender = 42; // 6 weeks view
-      // Group events by date string
+      const daysToRender = 42;
       const byDay = rows.reduce((acc,r)=>{ const k = r.date; (acc[k]=acc[k]||[]).push(r); return acc; },{});
 
       for (let i=0;i<daysToRender;i++){
@@ -232,10 +228,6 @@
       }
     }
 
-    $("#calPrev")?.addEventListener("click", ()=>{ if (calAnchor) calAnchor = new Date(calAnchor.getFullYear(), calAnchor.getMonth()-1, 1); applyFiltersAndRender(); setView('calendar'); });
-    $("#calNext")?.addEventListener("click", ()=>{ if (calAnchor) calAnchor = new Date(calAnchor.getFullYear(), calAnchor.getMonth()+1, 1); applyFiltersAndRender(); setView('calendar'); });
-
-    // Header sorting (multi w/ Shift) -----------------------------------------
     $$("#eventsTable thead th").forEach(th => {
       th.addEventListener("click", (ev) => {
         const key = th.getAttribute("data-key"); if (!key) return;
@@ -249,8 +241,8 @@
       });
     });
 
-    // Clickable summary chips --------------------------------------------------
     summaryCounts?.addEventListener("click", (e) => {
+      track('summary_chip_click');
       const chip = e.target.closest('.chip'); if (!chip || !typesSel) return;
       const typ = chip.getAttribute('data-type'); if (!typ) return;
       const selected = Array.from(typesSel.selectedOptions).map(o=>o.value);
@@ -260,11 +252,10 @@
       applyFiltersAndRender();
     });
 
-    // Controls wiring ----------------------------------------------------------
-    fromInput?.addEventListener("input", applyFiltersAndRender);
-    toInput?.addEventListener("input", applyFiltersAndRender);
+    fromInput?.addEventListener("input", ()=>{ track('date_filter',{which:'from', value:fromInput?.value||''}); applyFiltersAndRender(); });
+    toInput?.addEventListener("input", ()=>{ track('date_filter',{which:'to', value:toInput?.value||''}); applyFiltersAndRender(); });
     symInput?.addEventListener("input", applyFiltersAndRender);
-    typesSel?.addEventListener("input", applyFiltersAndRender);
+    typesSel?.addEventListener("input", ()=>{ track('type_filter',{types:getSelectedTypes().join('|')}); applyFiltersAndRender(); });
     clearTypes?.addEventListener("click", () => { if (typesSel) Array.from(typesSel.options).forEach(o=>o.selected=false); applyFiltersAndRender(); });
     clearBtn?.addEventListener("click", () => {
       if (fromInput) fromInput.value = "";
@@ -280,14 +271,14 @@
       if (toInput) toInput.valueAsDate = to;
       applyFiltersAndRender();
     });
-    exportBtn?.addEventListener("click", () => {
+    exportBtn?.addEventListener("click", () => { track('export_csv');
       const body = $("#eventsTable tbody"); if (!body) return;
       const rows = Array.from(body.querySelectorAll(".rowGroup")).map(tr => {
         const tds = tr.querySelectorAll("td");
         return {date:tds[0].innerText,symbol:tds[1].innerText,type:tds[2].innerText,domain:tds[3].innerText,stage:tds[4].innerText,event:tds[5].innerText,why:tds[6].innerText,source:(tr.nextElementSibling.querySelector("a.source")||{}).href||""};
       });
       const header=["Date (ET)","Symbol","Type","Domain","Stage","Event","Why it matters","Source"];
-      const csv=[header.join(","),...rows.map(r=>header.map(h=>{const key={"Date (ET)":"date","Symbol":"symbol","Type":"type","Domain":"domain","Stage":"stage","Event":"event","Why it matters":"why","Source":"source"}[h];const val=(r[key]||"").replace(/\"/g,'\"\"');return `"${val}"`;}).join(","))].join("\r\n");
+      const csv=[header.join(","),...rows.map(r=>header.map(h=>{const key={"Date (ET)":"date","Symbol":"symbol","Type":"type","Domain":"domain","Stage":"stage","Event":"event","Why it matters":"why","Source":"source"}[h];const val=(r[key]||"").replace(/\\"/g,'\\\\"');return `"`+val+`"`;}).join(","))].join("\\r\\n");
       const blob=new Blob([csv],{type:"text/csv"}); const url=URL.createObjectURL(blob); const a=document.createElement("a"); a.href=url; a.download="events.csv"; a.click(); setTimeout(()=>URL.revokeObjectURL(url),1000);
     });
 
@@ -296,7 +287,19 @@
       renderTable(rows); renderCards(rows); updateCalendar(rows); updateSummary(rows);
     }
 
-    // Initial render when data is ready
+    (function(){
+      try{
+        const today = new Date();
+        const to = new Date(today.getTime()+13*24*60*60*1000);
+        const inRange = (d)=> { const x=new Date(d+'T00:00:00-04:00'); return x>=today && x<=to; };
+        const count = (Array.isArray(window.EVENTS)?window.EVENTS:[]).filter(e=>inRange(e.date)).length;
+        if (count){
+          document.title = `VigyaanVest — Events Radar (${count} next 2 weeks)`;
+          const ogT = document.getElementById('ogTitle'); if (ogT) ogT.setAttribute('content', document.title);
+        }
+      }catch(e){}
+    })();
+
     const ready = setInterval(()=>{
       if (Array.isArray(window.EVENTS)){
         clearInterval(ready);

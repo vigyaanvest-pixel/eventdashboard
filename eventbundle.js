@@ -1,21 +1,12 @@
-
-const events = [
-  {
-    date: "2025-08-12T08:30:00",
-    type: "Macro",
-    title: "U.S. CPI Release",
-    symbol: "",
-    impact: "High",
-    why: "Inflation trends affect interest rate expectations and market direction.",
-    source: "https://www.bls.gov/news.release/cpi.nr0.htm"
-  },
-  {
-    date: "2025-08-13T16:00:00",
-    type: "Earnings",
-    title: "TSLA Q2 Earnings Call",
-    symbol: "TSLA",
-    impact: "High",
-    why: "Investors watching delivery numbers and margin trends.",
-    source: "https://ir.tesla.com"
-  }
+window.EVENTS = [
+  {"date":"2025-08-12","time_et":"08:30","symbol":"","name":"CPI (July)","type":"Macro","domain":"Inflation","stage":"Release","why":"Rates steer risk multiples","source":"https://www.bls.gov/","notes":""},
+  {"date":"2025-08-14","time_et":"08:30","symbol":"","name":"PPI (July)","type":"Macro","domain":"Inflation","stage":"Release","why":"Input costs; rate expectations","source":"https://www.bls.gov/","notes":""},
+  {"date":"2025-08-15","time_et":"08:30","symbol":"","name":"Advance Retail Sales (July)","type":"Macro","domain":"Demand","stage":"Release","why":"Consumer pulse","source":"https://www.census.gov/","notes":""},
+  {"date":"2025-08-20","time_et":"14:00","symbol":"","name":"FOMC Minutes (Jul mtg)","type":"Macro","domain":"Rates","stage":"Minutes","why":"Policy tone → yields","source":"https://www.federalreserve.gov/","notes":""},
+  {"date":"2025-08-15","time_et":"00:00","symbol":"","name":"Monthly options expiration","type":"Market Micro","domain":"Options","stage":"Expiration","why":"Dealer positioning flows","source":"https://www.cboe.com/","notes":""},
+  {"date":"2025-08-15","time_et":"00:00","symbol":"","name":"FINRA short-interest — settlement date","type":"Market Micro","domain":"Short interest","stage":"Settlement","why":"Next publication can affect squeeze risk","source":"https://www.finra.org/","notes":""},
+  {"date":"2025-08-09","time_et":"17:00","symbol":"COIN","name":"Q2 10‑Q filing deadline","type":"Company","domain":"SEC filing","stage":"Deadline","why":"Fresh disclosures","source":"https://www.sec.gov/","notes":""},
+  {"date":"2025-08-12","time_et":"09:00","symbol":"QS","name":"J.P. Morgan Auto Conference (Day 1)","type":"Sector Conf","domain":"Autos","stage":"Conference","why":"OEM commentary → suppliers","source":"https://www.jpmorgan.com/","notes":""},
+  {"date":"2025-08-14","time_et":"10:00","symbol":"COIN","name":"SEC open meeting (if scheduled)","type":"Regulatory","domain":"SEC","stage":"Open meeting","why":"Market structure policies","source":"https://www.sec.gov/","notes":""},
+  {"date":"2025-08-08","time_et":"16:30","symbol":"COIN","name":"US Spot Bitcoin ETF flows (daily cadence)","type":"Industry Print","domain":"Crypto ETFs","stage":"Flow report","why":"Flows → exchange volumes","source":"https://www.ishares.com/","notes":""}
 ];

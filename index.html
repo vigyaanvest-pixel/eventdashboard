@@ -1,61 +1,136 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" data-theme="light">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Upcoming Stock Market Events – VigyaanVest</title>
-  <meta name="description" content="View upcoming stock market events across earnings, legislation, macro, and partnerships. Updated daily by VigyaanVest." />
-  <meta property="og:title" content="Stock Event Dashboard – VigyaanVest" />
-  <meta property="og:description" content="Macro + company-specific events to watch. Earnings, votes, regulations, and more." />
-  <meta property="og:image" content="/img/social-card.png" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://events.vigyaanvest.com/" />
-  <link rel="icon" href="/img/favicon.ico" type="image/x-icon" />
-  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-T5HCR8MKSP"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Free 2-week market events radar by VigyaanVest — scan macro, regulatory, conference, and company catalysts fast. Optional CSV export and calendar view." />
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <meta property="og:site_name" content="VigyaanVest">
+  <meta property="og:type" content="website">
+  <meta id="ogTitle" property="og:title" content="Events Radar — next 2 weeks | VigyaanVest">
+  <meta property="og:description" content="See the next two weeks of market-moving events in a fast, scannable layout.">
+  <meta property="og:image" content="img/logo-og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+  <title>VigyaanVest — Events Radar (next 2 weeks)</title>
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-T5HCR8MKSP');
+    (function(){
+      var ln = document.createElement('link');
+      ln.rel = 'canonical';
+      ln.href = location.origin + location.pathname;
+      document.head.appendChild(ln);
+    })();
   </script>
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      margin: 0;
-      background: #f9f9f9;
-      color: #111;
-    }
-    header {
-      background-color: #002147;
-      color: white;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-    }
-    .logo {
-      height: 32px;
-    }
-    .cta {
-      background: #ffac33;
-      color: #000;
-      padding: 0.6rem 1.2rem;
-      border-radius: 6px;
-      font-weight: 600;
-      text-decoration: none;
-    }
-    .cta:hover {
-      background: #ffbd59;
-    }
-  </style>
 </head>
 <body>
   <header>
-    <img class="logo" src="/img/logo.png" alt="VigyaanVest Logo" />
-    <a class="cta" href="https://vigyaanvest.com/#pricingplans?utm_source=events&utm_medium=web&utm_campaign=cta" target="_blank" onclick="gtag('event', 'cta_click_paid_signals', {event_category: 'conversion'});">Get Paid Signals</a>
+    <div class="topbar">
+      <a href="https://vigyaanvest.com/" class="brand" aria-label="VigyaanVest home">
+    <img src="img/logo-compact.png" alt="VigyaanVest" class="logo"
+  onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<strong class=&quot;brandName&quot;>VigyaanVest — Events Radar</strong>')">
+      </a>
+      <div class="toolbar">
+        <button id="viewTable" class="btn small" aria-pressed="true" title="Table view">Table</button>
+        <button id="viewCards" class="btn small" aria-pressed="false" title="Cards view">Cards</button>
+        <button id="viewCalendar" class="btn small" aria-pressed="false" title="Calendar view">Calendar</button>
+        <button id="toggleDark" class="btn small" title="Toggle dark mode">Dark</button>
+        <a id="ctaPaid" class="btn cta" href="https://vigyaanvest.com/?utm_source=events&utm_medium=site&utm_campaign=events_bundle" target="_blank" rel="noopener">Explore More...</a>
+      </div>
+    </div>
+    <div class="controls">
+      <label>From <input type="date" id="fromDate"></></label>
+      <label>To <input type="date" id="toDate"></></label>
+      <label>Symbols <input type="text" id="symbols" placeholder="e.g., QS, COIN (leave blank to include Macro/Micro)"></label>
+      <label>Types
+        <select id="types" multiple>
+          <option>Company</option>
+          <option>Policy / Legislation</option>
+          <option>Regulatory</option>
+          <option>Macro</option>
+          <option>Sector Conf</option>
+          <option>Industry Print</option>
+          <option>Market Micro</option>
+        </select>
+      </label>
+      <button id="clearTypes" class="btn ghost" title="Deselect all types">Clear Types</button>
+      <button id="preset14" class="btn">Next 14 days</button>
+      <button id="clearFilters" class="btn ghost">Clear</button>
+      <button id="exportCsv" class="btn">Export CSV</button>
+    </div>
+
+    <div id="summaryBar" class="summary sticky">
+      <div id="summaryCounts"></div>
+      <div id="nextEvent"></div>
+    </div>
   </header>
-  <script src="eventbundle.js"></script>
+
+  <div id="status" class="status" hidden></div>
+
+  <main>
+    <div id="tableWrap" class="tableWrap">
+      <table id="eventsTable">
+        <thead>
+          <tr>
+            <th data-key="date">Date (ET)</th>
+            <th data-key="symbol">Symbol</th>
+            <th data-key="type">Type</th>
+            <th data-key="domain">Domain</th>
+            <th data-key="stage">Stage</th>
+            <th data-key="name">Event</th>
+            <th data-key="why">Why it matters</th>
+            <th>ICS</th>
+            <th>Source</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div id="cardsWrap" class="cardsWrap" hidden></div>
+
+    <div id="calendarWrap" class="calendarWrap" hidden>
+      <div class="calendarHeader">
+        <button id="calPrev" class="btn small ghost">&larr;</button>
+        <div id="calTitle"></div>
+        <button id="calNext" class="btn small ghost">&rarr;</button>
+      </div>
+      <div class="calendarGrid" id="calendarGrid" aria-label="Month calendar grid"></div>
+      <div class="calendarLegend">
+        <span class="dot Macro"></span> Macro
+        <span class="dot MarketMicro"></span> Market Micro
+        <span class="dot Regulatory"></span> Regulatory
+        <span class="dot PolicyLegislation"></span> Policy / Legislation
+        <span class="dot Company"></span> Company
+        <span class="dot SectorConf"></span> Sector Conf
+        <span class="dot IndustryPrint"></span> Industry Print
+      </div>
+    </div>
+
+    <p class="hint">Tip: click a <strong>Type chip</strong> to filter; Shift‑click headers for <strong>multi‑sort</strong>. Macro/Market Micro items now have blank symbol.</p>
+  </main>
+
+  <footer>
+    <span>Static public site. Replace <code>eventbundle.js</code> daily.</span>
+  </footer>
+
+  <script>
+    (function(){
+      var s = document.createElement('script');
+      s.src = 'eventbundle.js?v=' + Date.now();
+      s.async = false;
+      s.onload = function(){ window.__BUNDLE_OK__ = true; };
+      s.onerror = function(){
+        var st = document.getElementById('status');
+        st.hidden = false;
+        st.textContent = 'Failed to load eventbundle.js — ensure it is next to index.html.';
+      };
+      document.head.appendChild(s);
+    })();
+  </script>
+  <script src="analytics.js" defer></script>
+  <script src="app.js" defer></script>
 </body>
 </html>
