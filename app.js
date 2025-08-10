@@ -24,8 +24,7 @@
       localStorage.setItem("er_theme", next);
     });
 
-
-    // Thumbs up (GA4) ------------------------------------------------------------
+// Thumbs up (GA4) ------------------------------------------------------------
 const likeKey = "vv_like_" + (location.pathname || "/");
 const likeBtn = document.getElementById("thumbsUp");
 function sendGA(name, params){ try{ window.gtag && gtag('event', name, params||{}); }catch(e){} }
@@ -48,6 +47,8 @@ if (likeBtn){
     });
   });
 }
+
+
     // Views -------------------------------------------------------------------
     const tableWrap = $("#tableWrap");
     const cardsWrap = $("#cardsWrap");
@@ -55,7 +56,7 @@ if (likeBtn){
     const btnTable = $("#viewTable");
     const btnCards = $("#viewCards");
     const btnCal   = $("#viewCalendar");
-
+	const colFilters = $$(".colFilter");
     function setView(v){
       track('view_' + v);
       const map = {table:tableWrap, cards:cardsWrap, calendar:calWrap};
@@ -119,17 +120,42 @@ if (likeBtn){
       return 0;
     }
 
-    function filteredRows(){
-      const from = fromInput?.value ? new Date(fromInput.value+"T00:00:00-04:00") : null;
-      const to   = toInput?.value ? new Date(toInput.value+"T00:00:00-04:00") : null;
-      const syms = normalizeSymbolsInput();
-      const types= getSelectedTypes();
-      const src  = Array.isArray(window.EVENTS) ? window.EVENTS : [];
-      return src.filter(e => withinRange(e.date, from, to))
-                .filter(e => matchesSymbols(e.symbol, syms))
-                .filter(e => matchesType(e.type, types))
-                .sort(multiCompare);
+   function filteredRows(){
+  const from = fromInput?.value ? new Date(fromInput.value+"T00:00:00-04:00") : null;
+  const to   = toInput?.value ? new Date(toInput.value+"T00:00:00-04:00") : null;
+  const syms = normalizeSymbolsInput();
+  const types= getSelectedTypes();
+  const src  = Array.isArray(window.EVENTS) ? window.EVENTS : [];
+
+  // Build active column filters map: { key -> lowercase needle }
+  const needles = {};
+  colFilters.forEach(inp => {
+    const k = inp.dataset.key;
+    const v = (inp.value || "").trim().toLowerCase();
+    if (k && v) needles[k] = v;
+  });
+
+  function matchesColFilters(e){
+    for (const [k, n] of Object.entries(needles)){
+      let hay = "";
+      if (k === "date")      hay = fmtDateYMD(e.date, e.time_et); // search formatted date string
+      else if (k === "name") hay = e.name || "";
+      else if (k === "why")  hay = e.why || "";
+      else if (k === "source") hay = e.source || "";
+      else hay = e[k] || "";
+      if (String(hay).toLowerCase().indexOf(n) === -1) return false;
     }
+    return true;
+  }
+
+  return src
+    .filter(e => withinRange(e.date, from, to))
+    .filter(e => matchesSymbols(e.symbol, syms))
+    .filter(e => matchesType(e.type, types))
+    .filter(matchesColFilters)
+    .sort(multiCompare);
+}
+
 
     function updateSummary(rows){
       if (!summaryCounts || !nextEventEl) return;
@@ -277,6 +303,7 @@ if (likeBtn){
     });
 
     fromInput?.addEventListener("input", ()=>{ track('date_filter',{which:'from', value:fromInput?.value||''}); applyFiltersAndRender(); });
+	colFilters.forEach(inp => inp.addEventListener("input", applyFiltersAndRender));
     toInput?.addEventListener("input", ()=>{ track('date_filter',{which:'to', value:toInput?.value||''}); applyFiltersAndRender(); });
     symInput?.addEventListener("input", applyFiltersAndRender);
     typesSel?.addEventListener("input", ()=>{ track('type_filter',{types:getSelectedTypes().join('|')}); applyFiltersAndRender(); });
@@ -285,6 +312,7 @@ if (likeBtn){
       if (fromInput) fromInput.value = "";
       if (toInput) toInput.value = "";
       if (symInput) symInput.value = "";
+	  colFilters.forEach(inp => inp.value = "");
       if (typesSel) Array.from(typesSel.options).forEach(o=>o.selected=false);
       sortRules = []; calAnchor = null;
       applyFiltersAndRender();
