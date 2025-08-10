@@ -70,3 +70,34 @@ footer{padding:12px 20px;font-size:12px;color:var(--muted)}
 [data-theme="dark"] .calendarWrap .ev { color: #0b1220; }               /* dark text */
 [data-theme="dark"] .calendarWrap .dayCell { border-color: #334155; }   /* clearer borders */
 [data-theme="dark"] .calendarWrap .dayHead { color: #cbd5e1; }          /* date numbers pop */
+
+/* 1) Make the wide table usable on phones */
+.tableWrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+#eventsTable { min-width: 900px; }  /* allows smooth horizontal scroll */
+
+/* Hide non-critical columns on very small screens */
+@media (max-width: 640px){
+  #eventsTable th:nth-child(3), #eventsTable td:nth-child(3),  /* Type */
+  #eventsTable th:nth-child(4), #eventsTable td:nth-child(4),  /* Domain */
+  #eventsTable th:nth-child(5), #eventsTable td:nth-child(5),  /* Stage  */
+  #eventsTable th:nth-child(8), #eventsTable td:nth-child(8)   /* ICS    */
+  { display: none; }
+}
+
+/* 2) Calendar readability on phones */
+@media (max-width: 640px){
+  .dayCell { min-height: 90px; padding: 6px; }
+  .dayEvents .ev { font-size: 12px; white-space: normal; } /* allow wrap */
+}
+
+/* 3) Sticky header sizing so the table header doesn’t float too low */
+:root { --sticky-top: 118px; }
+thead th { top: var(--sticky-top); }
+@media (max-width: 640px){ :root { --sticky-top: 96px; } }
+
+/* 4) Slightly larger tap targets for the toolbar on mobile */
+@media (max-width: 640px){
+  .btn.small { padding: 10px 12px; font-size: 13px; }
+  .controls label { width: 100%; }         /* filters stack full-width */
+  .controls input,.controls select { flex: 1; }
+}
